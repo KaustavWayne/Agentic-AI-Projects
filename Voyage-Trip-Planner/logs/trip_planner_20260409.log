@@ -1,0 +1,345 @@
+2026-04-09 20:06:18 | trip_planner | INFO | Starting trip plan for: Kolkata
+2026-04-09 20:06:19 | trip_planner | INFO | LangGraph trip planner graph (with weather node) compiled
+2026-04-09 20:06:19 | trip_planner | INFO | [Node: Destination Research] Starting for: Kolkata
+2026-04-09 20:06:19 | trip_planner | INFO | TavilySearchTool initialized
+2026-04-09 20:06:22 | trip_planner | INFO | GroqClient initialized with llama3-8b-instant
+2026-04-09 20:06:22 | trip_planner | INFO | CurrencyConverter initialized
+2026-04-09 20:06:22 | trip_planner | INFO | Tavily search: 'travel guide Kolkata Food & Cuisine, History & Culture best places to visit weat...' 
+2026-04-09 20:06:28 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:06:30 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:06:32 | trip_planner | ERROR | [Node: Destination Research] Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:06:32 | trip_planner | INFO | [Node: Currency Conversion] Starting currency setup
+2026-04-09 20:06:33 | trip_planner | INFO | Fetched live rates for 166 currencies
+2026-04-09 20:06:33 | trip_planner | INFO | [Node: Weather] Fetching weather data
+2026-04-09 20:06:33 | trip_planner | WARNING | OPENWEATHER_API_KEY not set – weather will use Tavily fallback
+2026-04-09 20:06:33 | trip_planner | INFO | Using Tavily fallback weather for Kolkata
+2026-04-09 20:06:33 | trip_planner | INFO | Tavily search: 'current weather Kolkata Unknown temperature humidity forecast today'
+2026-04-09 20:06:36 | trip_planner | INFO | [Node: Weather] Complete: 25.0°C, Clear Sky, 5 forecast days
+2026-04-09 20:06:36 | trip_planner | INFO | [Node: Budget Planner] Starting budget calculation
+2026-04-09 20:06:36 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:06:38 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:06:40 | trip_planner | ERROR | [Node: Budget Planner] Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:06:40 | trip_planner | INFO | [Node: Hotel Finder] Starting hotel search
+2026-04-09 20:06:40 | trip_planner | INFO | Tavily search: 'budget affordable hotels in Kolkata with good ratings booking.com MakeMyTrip 202...' 
+2026-04-09 20:06:46 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:06:48 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:06:50 | trip_planner | ERROR | [Node: Hotel Finder] Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:06:50 | trip_planner | INFO | [Node: Itinerary Planner] Starting itinerary creation
+2026-04-09 20:06:50 | trip_planner | INFO | Tavily search: 'top activities things to do Kolkata Food & Cuisine History & Culture tourist att...' 
+2026-04-09 20:06:53 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:06:55 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:06:57 | trip_planner | ERROR | [Node: Itinerary Planner] Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:06:57 | trip_planner | INFO | [Node: Transport] Starting transport research
+2026-04-09 20:06:57 | trip_planner | INFO | Tavily search: 'flights trains transport from India to Kolkata cost booking 2024 2025'
+2026-04-09 20:07:00 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:07:02 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:07:04 | trip_planner | ERROR | [Node: Transport] Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:07:04 | trip_planner | INFO | [Node: Aggregator] Starting final aggregation
+2026-04-09 20:07:04 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:07:07 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:07:09 | trip_planner | ERROR | [Node: Aggregator] Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:07:09 | trip_planner | WARNING | Completed with 6 error(s): ["Destination Research Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Budget Planner Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Hotel Finder Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Itinerary Planner Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Transport Node Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Aggregator Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"]
+2026-04-09 20:07:09 | trip_planner | INFO | Trip planner workflow completed
+2026-04-09 20:07:09 | trip_planner | WARNING | Plan generated with warnings: ["Destination Research Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Budget Planner Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Hotel Finder Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Itinerary Planner Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Transport Node Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Aggregator Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"]
+2026-04-09 20:17:34 | trip_planner | INFO | LangGraph trip planner graph (with weather node) compiled
+2026-04-09 20:17:34 | trip_planner | INFO | [Node: Destination Research] Starting for: Kolkata
+2026-04-09 20:17:34 | trip_planner | INFO | TavilySearchTool initialized
+2026-04-09 20:17:34 | trip_planner | INFO | GroqClient initialized with llama3-8b-instant
+2026-04-09 20:17:34 | trip_planner | INFO | CurrencyConverter initialized
+2026-04-09 20:17:34 | trip_planner | INFO | Tavily search: 'travel guide Kolkata Food & Cuisine, History & Culture best places to visit weat...' 
+2026-04-09 20:17:35 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:17:38 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:17:40 | trip_planner | ERROR | [Node: Destination Research] Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:17:40 | trip_planner | INFO | [Node: Currency Conversion] Starting currency setup
+2026-04-09 20:17:40 | trip_planner | INFO | Fetched live rates for 166 currencies
+2026-04-09 20:17:40 | trip_planner | INFO | [Node: Weather] Fetching weather data
+2026-04-09 20:17:40 | trip_planner | WARNING | OPENWEATHER_API_KEY not set – weather will use Tavily fallback
+2026-04-09 20:17:40 | trip_planner | INFO | Using Tavily fallback weather for Kolkata
+2026-04-09 20:17:40 | trip_planner | INFO | Tavily search: 'current weather Kolkata Unknown temperature humidity forecast today'
+2026-04-09 20:17:43 | trip_planner | INFO | [Node: Weather] Complete: 24.0°C, Clear Sky, 5 forecast days
+2026-04-09 20:17:43 | trip_planner | INFO | [Node: Budget Planner] Starting budget calculation
+2026-04-09 20:17:43 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:17:45 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:17:47 | trip_planner | ERROR | [Node: Budget Planner] Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:17:47 | trip_planner | INFO | [Node: Hotel Finder] Starting hotel search
+2026-04-09 20:17:47 | trip_planner | INFO | Tavily search: 'budget affordable hotels in Kolkata with good ratings booking.com MakeMyTrip 202...' 
+2026-04-09 20:17:48 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:17:50 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:17:52 | trip_planner | ERROR | [Node: Hotel Finder] Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:17:52 | trip_planner | INFO | [Node: Itinerary Planner] Starting itinerary creation
+2026-04-09 20:17:52 | trip_planner | INFO | Tavily search: 'top activities things to do Kolkata Food & Cuisine History & Culture tourist att...' 
+2026-04-09 20:17:52 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:17:55 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:17:57 | trip_planner | ERROR | [Node: Itinerary Planner] Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:17:57 | trip_planner | INFO | [Node: Transport] Starting transport research
+2026-04-09 20:17:57 | trip_planner | INFO | Tavily search: 'flights trains transport from India to Kolkata cost booking 2024 2025'
+2026-04-09 20:17:57 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:17:59 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:18:01 | trip_planner | ERROR | [Node: Transport] Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:18:01 | trip_planner | INFO | [Node: Aggregator] Starting final aggregation
+2026-04-09 20:18:02 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:18:04 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:18:06 | trip_planner | ERROR | [Node: Aggregator] Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:18:06 | trip_planner | WARNING | Completed with 6 error(s): ["Destination Research Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Budget Planner Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Hotel Finder Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Itinerary Planner Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Transport Node Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Aggregator Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"]
+2026-04-09 20:18:06 | trip_planner | INFO | Trip planner workflow completed
+2026-04-09 20:18:06 | trip_planner | WARNING | Plan has warnings: ["Destination Research Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Budget Planner Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Hotel Finder Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Itinerary Planner Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Transport Node Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}", "Aggregator Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"]
+2026-04-09 20:30:39 | trip_planner | INFO | LangGraph trip planner graph (with weather node) compiled
+2026-04-09 20:30:39 | trip_planner | INFO | [Node: Destination Research] Query: 'Kolkata'
+2026-04-09 20:30:39 | trip_planner | INFO | CurrencyConverter initialized
+2026-04-09 20:30:39 | trip_planner | INFO | [Node: Destination Research] Found in local DB: Kolkata
+2026-04-09 20:30:39 | trip_planner | INFO | [Node: Currency Conversion] Starting currency setup
+2026-04-09 20:30:40 | trip_planner | INFO | Fetched live rates for 166 currencies
+2026-04-09 20:30:40 | trip_planner | INFO | [Node: Weather] Fetching weather data
+2026-04-09 20:30:40 | trip_planner | WARNING | OPENWEATHER_API_KEY not set – weather will use Tavily fallback
+2026-04-09 20:30:40 | trip_planner | INFO | Using Tavily fallback weather for Kolkata
+2026-04-09 20:30:40 | trip_planner | INFO | TavilySearchTool initialized
+2026-04-09 20:30:40 | trip_planner | INFO | Tavily search: 'current weather Kolkata India temperature humidity forecast today'
+2026-04-09 20:30:45 | trip_planner | INFO | [Node: Weather] Complete: 28.0°C, Clear Sky, 5 forecast days
+2026-04-09 20:30:45 | trip_planner | INFO | [Node: Budget Planner] Starting
+2026-04-09 20:30:45 | trip_planner | INFO | GroqClient initialized with llama3-8b-instant
+2026-04-09 20:30:45 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:30:47 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:30:49 | trip_planner | WARNING | [Node: Budget Planner] LLM failed (using rule-based): Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:30:49 | trip_planner | INFO | [Node: Hotel Finder] Starting
+2026-04-09 20:30:49 | trip_planner | INFO | Tavily search: 'budget affordable hotels in Kolkata with good ratings booking.com MakeMyTrip 202...' 
+2026-04-09 20:30:50 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:30:52 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:30:54 | trip_planner | WARNING | [Node: Hotel Finder] Tavily/LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:30:54 | trip_planner | INFO | [Node: Hotel Finder] Got 0 from LLM, filling with fallback
+2026-04-09 20:30:54 | trip_planner | INFO | [Node: Hotel Finder] Returning 3 hotels
+2026-04-09 20:30:54 | trip_planner | INFO | [Node: Itinerary Planner] Starting
+2026-04-09 20:30:54 | trip_planner | INFO | Tavily search: 'top activities things to do Kolkata Food & Cuisine History & Culture tourist att...' 
+2026-04-09 20:30:54 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:30:56 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:30:59 | trip_planner | WARNING | [Node: Itinerary Planner] LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:30:59 | trip_planner | INFO | [Node: Itinerary Planner] LLM gave 0 days, filling 3 with fallback
+2026-04-09 20:30:59 | trip_planner | INFO | [Node: Itinerary Planner] Returning 3 days
+2026-04-09 20:30:59 | trip_planner | INFO | [Node: Transport] Starting
+2026-04-09 20:30:59 | trip_planner | INFO | Tavily search: 'flights trains transport from India to Kolkata cost booking 2024 2025'
+2026-04-09 20:30:59 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:31:01 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:31:03 | trip_planner | WARNING | [Node: Transport] LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:31:03 | trip_planner | INFO | [Node: Transport] Returning 3 options
+2026-04-09 20:31:03 | trip_planner | INFO | [Node: Aggregator] Starting final aggregation
+2026-04-09 20:31:04 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:31:06 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:31:08 | trip_planner | ERROR | [Node: Aggregator] Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:31:08 | trip_planner | WARNING | Completed with 1 error(s): ["Aggregator Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"]
+2026-04-09 20:31:08 | trip_planner | INFO | Trip planner workflow completed
+2026-04-09 20:31:08 | trip_planner | WARNING | Plan has warnings: ["Aggregator Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"]
+2026-04-09 20:33:32 | trip_planner | INFO | LangGraph trip planner graph (with weather node) compiled
+2026-04-09 20:33:32 | trip_planner | INFO | [Node: Destination Research] Query: 'Paris'
+2026-04-09 20:33:32 | trip_planner | INFO | CurrencyConverter initialized
+2026-04-09 20:33:32 | trip_planner | INFO | [Node: Destination Research] Found in local DB: Paris
+2026-04-09 20:33:32 | trip_planner | INFO | [Node: Currency Conversion] Starting currency setup
+2026-04-09 20:33:33 | trip_planner | INFO | Fetched live rates for 166 currencies
+2026-04-09 20:33:33 | trip_planner | INFO | [Node: Weather] Fetching weather data
+2026-04-09 20:33:33 | trip_planner | WARNING | OPENWEATHER_API_KEY not set – weather will use Tavily fallback
+2026-04-09 20:33:33 | trip_planner | INFO | Using Tavily fallback weather for Paris
+2026-04-09 20:33:33 | trip_planner | INFO | TavilySearchTool initialized
+2026-04-09 20:33:33 | trip_planner | INFO | Tavily search: 'current weather Paris France temperature humidity forecast today'
+2026-04-09 20:33:38 | trip_planner | INFO | [Node: Weather] Complete: 14.0°C, Cloudy, 5 forecast days
+2026-04-09 20:33:38 | trip_planner | INFO | [Node: Budget Planner] Starting
+2026-04-09 20:33:39 | trip_planner | INFO | GroqClient initialized with llama3-8b-instant
+2026-04-09 20:33:39 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:33:41 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:33:44 | trip_planner | WARNING | [Node: Budget Planner] LLM failed (using rule-based): Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:33:44 | trip_planner | INFO | [Node: Hotel Finder] Starting
+2026-04-09 20:33:44 | trip_planner | INFO | Tavily search: 'mid-range comfortable hotels in Paris with good ratings booking.com MakeMyTrip 2...' 
+2026-04-09 20:33:49 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:33:51 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:33:53 | trip_planner | WARNING | [Node: Hotel Finder] Tavily/LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:33:53 | trip_planner | INFO | [Node: Hotel Finder] Got 0 from LLM, filling with fallback
+2026-04-09 20:33:53 | trip_planner | INFO | [Node: Hotel Finder] Returning 3 hotels
+2026-04-09 20:33:53 | trip_planner | INFO | [Node: Itinerary Planner] Starting
+2026-04-09 20:33:53 | trip_planner | INFO | Tavily search: 'top activities things to do Paris Food & Cuisine History & Culture tourist attra...' 
+2026-04-09 20:33:57 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:33:59 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:34:01 | trip_planner | WARNING | [Node: Itinerary Planner] LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:34:01 | trip_planner | INFO | [Node: Itinerary Planner] LLM gave 0 days, filling 4 with fallback
+2026-04-09 20:34:01 | trip_planner | INFO | [Node: Itinerary Planner] Returning 4 days
+2026-04-09 20:34:01 | trip_planner | INFO | [Node: Transport] Starting
+2026-04-09 20:34:01 | trip_planner | INFO | Tavily search: 'flights trains transport from India to Paris cost booking 2024 2025'
+2026-04-09 20:34:06 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:34:08 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:34:10 | trip_planner | WARNING | [Node: Transport] LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:34:10 | trip_planner | INFO | [Node: Transport] Returning 3 options
+2026-04-09 20:34:10 | trip_planner | INFO | [Node: Aggregator] Starting final aggregation
+2026-04-09 20:34:10 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:34:12 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:34:14 | trip_planner | ERROR | [Node: Aggregator] Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:34:14 | trip_planner | WARNING | Completed with 1 error(s): ["Aggregator Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"]
+2026-04-09 20:34:14 | trip_planner | INFO | Trip planner workflow completed
+2026-04-09 20:34:14 | trip_planner | WARNING | Plan has warnings: ["Aggregator Error: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"]
+2026-04-09 20:40:46 | trip_planner | INFO | [GRAPH] START | dest=Paris budget=80000 days=4
+2026-04-09 20:40:46 | trip_planner | INFO | [GRAPH] Running destination_research | dest=Paris
+2026-04-09 20:40:46 | trip_planner | INFO | [Node: Destination Research] Query: 'Paris'
+2026-04-09 20:40:46 | trip_planner | INFO | CurrencyConverter initialized
+2026-04-09 20:40:46 | trip_planner | INFO | [Node: Destination Research] Found in local DB: Paris
+2026-04-09 20:40:46 | trip_planner | INFO | [GRAPH] destination_research done | dest_info=destination='Paris' country='France' is_domestic=False currency_code='EUR' weather='Temperate - mild summers, cold winters' best_time_to_visit='April to June, September to October' highlights=['Eiffel Tower', 'Louvre Museum', 'Champs-Élysées', 'Montmartre', 'Seine River cruise'] description="Paris, the City of Light, is the world's most romantic destination, celebrated for its art, cuisine, fashion, and iconic landmarks."
+2026-04-09 20:40:46 | trip_planner | INFO | [GRAPH] Running currency_conversion
+2026-04-09 20:40:46 | trip_planner | INFO | [Node: Currency Conversion] Starting currency setup
+2026-04-09 20:40:47 | trip_planner | INFO | Fetched live rates for 166 currencies
+2026-04-09 20:40:47 | trip_planner | INFO | [GRAPH] currency done | currency_info=base='INR' local='EUR' usd='USD' exchange_rate_inr_to_local=0.009269 exchange_rate_inr_to_usd=0.0108
+2026-04-09 20:40:47 | trip_planner | INFO | [GRAPH] Running weather_node
+2026-04-09 20:40:47 | trip_planner | INFO | [Node: Weather] Fetching weather data
+2026-04-09 20:40:47 | trip_planner | WARNING | OPENWEATHER_API_KEY not set – weather will use Tavily fallback
+2026-04-09 20:40:47 | trip_planner | INFO | Using Tavily fallback weather for Paris
+2026-04-09 20:40:47 | trip_planner | INFO | TavilySearchTool initialized
+2026-04-09 20:40:47 | trip_planner | INFO | [Node: Weather] Complete: 14.0°C, Cloudy, 5 forecast days
+2026-04-09 20:40:47 | trip_planner | INFO | [GRAPH] weather done | has_weather=True
+2026-04-09 20:40:47 | trip_planner | INFO | [GRAPH] Running budget_planner | budget_inr=80000.0
+2026-04-09 20:40:47 | trip_planner | INFO | [Node: Budget Planner] Starting
+2026-04-09 20:40:47 | trip_planner | INFO | GroqClient initialized with llama3-8b-instant
+2026-04-09 20:40:47 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:40:49 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:40:51 | trip_planner | WARNING | [Node: Budget Planner] LLM failed (using rule-based): Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:40:51 | trip_planner | INFO | [GRAPH] budget done | flights=30400.0 hotels=22400.0
+2026-04-09 20:40:51 | trip_planner | INFO | [GRAPH] Running hotel_finder
+2026-04-09 20:40:51 | trip_planner | INFO | [Node: Hotel Finder] Starting
+2026-04-09 20:40:52 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:40:54 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:40:56 | trip_planner | WARNING | [Node: Hotel Finder] Tavily/LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:40:56 | trip_planner | INFO | [Node: Hotel Finder] Got 0 from LLM, filling with fallback
+2026-04-09 20:40:56 | trip_planner | INFO | [Node: Hotel Finder] Returning 3 hotels
+2026-04-09 20:40:56 | trip_planner | INFO | [GRAPH] hotel_finder done | hotels=3
+2026-04-09 20:40:56 | trip_planner | INFO | [GRAPH] Running itinerary_planner
+2026-04-09 20:40:56 | trip_planner | INFO | [Node: Itinerary Planner] Starting
+2026-04-09 20:40:57 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:40:59 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:41:01 | trip_planner | WARNING | [Node: Itinerary Planner] LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:41:01 | trip_planner | INFO | [Node: Itinerary Planner] LLM gave 0 days, filling 4 with fallback
+2026-04-09 20:41:01 | trip_planner | INFO | [Node: Itinerary Planner] Returning 4 days
+2026-04-09 20:41:01 | trip_planner | INFO | [GRAPH] itinerary done | days=4
+2026-04-09 20:41:01 | trip_planner | INFO | [GRAPH] Running transport_node
+2026-04-09 20:41:01 | trip_planner | INFO | [Node: Transport] Starting
+2026-04-09 20:41:01 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:41:03 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:41:05 | trip_planner | WARNING | [Node: Transport] LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:41:05 | trip_planner | INFO | [Node: Transport] Returning 3 options
+2026-04-09 20:41:05 | trip_planner | INFO | [GRAPH] transport done | options=3
+2026-04-09 20:41:05 | trip_planner | INFO | [GRAPH] Running aggregator
+2026-04-09 20:41:05 | trip_planner | INFO | [Node: Aggregator] Starting
+2026-04-09 20:41:05 | trip_planner | INFO | [Node: Aggregator] Input: hotels=3 itinerary=4 transport=3
+2026-04-09 20:41:06 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:41:08 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:41:10 | trip_planner | WARNING | [Node: Aggregator] Tips LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:41:10 | trip_planner | INFO | [Node: Aggregator] TripPlan built: hotels=3 itinerary=4 transport=3 budget=Rs80,000
+2026-04-09 20:41:10 | trip_planner | INFO | [GRAPH] aggregator done | hotels=3 itinerary=4
+2026-04-09 20:41:10 | trip_planner | INFO | [GRAPH] COMPLETE | plan=OK errors=[]
+2026-04-09 20:41:10 | trip_planner | INFO | [GRAPH] Plan summary: dest=Paris hotels=3 itinerary=4 transport=3
+2026-04-09 20:41:10 | trip_planner | INFO | Plan stored in session state successfully
+2026-04-09 20:42:11 | trip_planner | INFO | [GRAPH] START | dest=Kolkata budget=10000 days=2
+2026-04-09 20:42:11 | trip_planner | INFO | [GRAPH] Running destination_research | dest=Kolkata
+2026-04-09 20:42:11 | trip_planner | INFO | [Node: Destination Research] Query: 'Kolkata'
+2026-04-09 20:42:11 | trip_planner | INFO | [Node: Destination Research] Found in local DB: Kolkata
+2026-04-09 20:42:11 | trip_planner | INFO | [GRAPH] destination_research done | dest_info=destination='Kolkata' country='India' is_domestic=True currency_code='INR' weather='Tropical - hot summers, mild winters' best_time_to_visit='October to March' highlights=['Victoria Memorial', 'Howrah Bridge', 'Durga Puja Festival', 'Park Street food scene', 'Sundarbans day trip'] description='Kolkata, the cultural capital of India, is known for its colonial architecture, vibrant arts scene, and world-famous street food.'
+2026-04-09 20:42:11 | trip_planner | INFO | [GRAPH] Running currency_conversion
+2026-04-09 20:42:11 | trip_planner | INFO | [Node: Currency Conversion] Starting currency setup
+2026-04-09 20:42:11 | trip_planner | INFO | [GRAPH] currency done | currency_info=base='INR' local='INR' usd='USD' exchange_rate_inr_to_local=1.0 exchange_rate_inr_to_usd=0.0108
+2026-04-09 20:42:11 | trip_planner | INFO | [GRAPH] Running weather_node
+2026-04-09 20:42:11 | trip_planner | INFO | [Node: Weather] Fetching weather data
+2026-04-09 20:42:11 | trip_planner | INFO | Using Tavily fallback weather for Kolkata
+2026-04-09 20:42:11 | trip_planner | INFO | Tavily search: 'current weather Kolkata India temperature humidity forecast today'
+2026-04-09 20:42:15 | trip_planner | INFO | [Node: Weather] Complete: 24.0°C, Clear Sky, 5 forecast days
+2026-04-09 20:42:15 | trip_planner | INFO | [GRAPH] weather done | has_weather=True
+2026-04-09 20:42:15 | trip_planner | INFO | [GRAPH] Running budget_planner | budget_inr=10000.0
+2026-04-09 20:42:15 | trip_planner | INFO | [Node: Budget Planner] Starting
+2026-04-09 20:42:15 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:42:17 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:42:20 | trip_planner | WARNING | [Node: Budget Planner] LLM failed (using rule-based): Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:42:20 | trip_planner | INFO | [GRAPH] budget done | flights=2500.0 hotels=3200.0
+2026-04-09 20:42:20 | trip_planner | INFO | [GRAPH] Running hotel_finder
+2026-04-09 20:42:20 | trip_planner | INFO | [Node: Hotel Finder] Starting
+2026-04-09 20:42:20 | trip_planner | INFO | Tavily search: 'budget affordable hotels in Kolkata with good ratings booking.com MakeMyTrip 202...' 
+2026-04-09 20:42:25 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:42:27 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:42:29 | trip_planner | WARNING | [Node: Hotel Finder] Tavily/LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:42:29 | trip_planner | INFO | [Node: Hotel Finder] Got 0 from LLM, filling with fallback
+2026-04-09 20:42:29 | trip_planner | INFO | [Node: Hotel Finder] Returning 3 hotels
+2026-04-09 20:42:29 | trip_planner | INFO | [GRAPH] hotel_finder done | hotels=3
+2026-04-09 20:42:29 | trip_planner | INFO | [GRAPH] Running itinerary_planner
+2026-04-09 20:42:29 | trip_planner | INFO | [Node: Itinerary Planner] Starting
+2026-04-09 20:42:29 | trip_planner | INFO | Tavily search: 'top activities things to do Kolkata Food & Cuisine History & Culture tourist att...' 
+2026-04-09 20:42:33 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:42:35 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:42:37 | trip_planner | WARNING | [Node: Itinerary Planner] LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:42:37 | trip_planner | INFO | [Node: Itinerary Planner] LLM gave 0 days, filling 2 with fallback
+2026-04-09 20:42:37 | trip_planner | INFO | [Node: Itinerary Planner] Returning 2 days
+2026-04-09 20:42:37 | trip_planner | INFO | [GRAPH] itinerary done | days=2
+2026-04-09 20:42:37 | trip_planner | INFO | [GRAPH] Running transport_node
+2026-04-09 20:42:37 | trip_planner | INFO | [Node: Transport] Starting
+2026-04-09 20:42:37 | trip_planner | INFO | Tavily search: 'flights trains transport from India to Kolkata cost booking 2024 2025'
+2026-04-09 20:42:40 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:42:42 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:42:44 | trip_planner | WARNING | [Node: Transport] LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:42:44 | trip_planner | INFO | [Node: Transport] Returning 3 options
+2026-04-09 20:42:44 | trip_planner | INFO | [GRAPH] transport done | options=3
+2026-04-09 20:42:44 | trip_planner | INFO | [GRAPH] Running aggregator
+2026-04-09 20:42:44 | trip_planner | INFO | [Node: Aggregator] Starting
+2026-04-09 20:42:44 | trip_planner | INFO | [Node: Aggregator] Input: hotels=3 itinerary=2 transport=3
+2026-04-09 20:42:44 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:42:47 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:42:49 | trip_planner | WARNING | [Node: Aggregator] Tips LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:42:49 | trip_planner | INFO | [Node: Aggregator] TripPlan built: hotels=3 itinerary=2 transport=3 budget=Rs10,000
+2026-04-09 20:42:49 | trip_planner | INFO | [GRAPH] aggregator done | hotels=3 itinerary=2
+2026-04-09 20:42:49 | trip_planner | INFO | [GRAPH] COMPLETE | plan=OK errors=[]
+2026-04-09 20:42:49 | trip_planner | INFO | [GRAPH] Plan summary: dest=Kolkata hotels=3 itinerary=2 transport=3
+2026-04-09 20:42:49 | trip_planner | INFO | Plan stored in session state successfully
+2026-04-09 20:45:52 | trip_planner | INFO | [GRAPH] START | dest=Tokyo budget=100000 days=4
+2026-04-09 20:45:52 | trip_planner | INFO | [GRAPH] Running destination_research | dest=Tokyo
+2026-04-09 20:45:52 | trip_planner | INFO | [Node: Destination Research] Query: 'Tokyo'
+2026-04-09 20:45:52 | trip_planner | INFO | [Node: Destination Research] Found in local DB: Tokyo
+2026-04-09 20:45:52 | trip_planner | INFO | [GRAPH] destination_research done | dest_info=destination='Tokyo' country='Japan' is_domestic=False currency_code='JPY' weather='Temperate - hot summers, cold winters, cherry blossoms in spring' best_time_to_visit='March-May and September-November' highlights=['Shibuya Crossing', 'Senso-ji Temple', 'Mount Fuji day trip', 'Akihabara electronics', 'Tsukiji fish market'] description='Tokyo is a mesmerising blend of ultramodern and traditional, from neon-lit skyscrapers to serene temples and world-renowned cuisine.'
+2026-04-09 20:45:52 | trip_planner | INFO | [GRAPH] Running currency_conversion
+2026-04-09 20:45:52 | trip_planner | INFO | [Node: Currency Conversion] Starting currency setup
+2026-04-09 20:45:52 | trip_planner | INFO | [GRAPH] currency done | currency_info=base='INR' local='JPY' usd='USD' exchange_rate_inr_to_local=1.7152 exchange_rate_inr_to_usd=0.0108
+2026-04-09 20:45:52 | trip_planner | INFO | [GRAPH] Running weather_node
+2026-04-09 20:45:52 | trip_planner | INFO | [Node: Weather] Fetching weather data
+2026-04-09 20:45:52 | trip_planner | INFO | Using Tavily fallback weather for Tokyo
+2026-04-09 20:45:52 | trip_planner | INFO | Tavily search: 'current weather Tokyo Japan temperature humidity forecast today'
+2026-04-09 20:45:55 | trip_planner | INFO | [Node: Weather] Complete: 18.0°C, Cloudy, 5 forecast days
+2026-04-09 20:45:55 | trip_planner | INFO | [GRAPH] weather done | has_weather=True
+2026-04-09 20:45:55 | trip_planner | INFO | [GRAPH] Running budget_planner | budget_inr=100000.0
+2026-04-09 20:45:55 | trip_planner | INFO | [Node: Budget Planner] Starting
+2026-04-09 20:45:55 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:45:57 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:45:59 | trip_planner | WARNING | [Node: Budget Planner] LLM failed (using rule-based): Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:45:59 | trip_planner | INFO | [GRAPH] budget done | flights=38000.0 hotels=28000.0
+2026-04-09 20:45:59 | trip_planner | INFO | [GRAPH] Running hotel_finder
+2026-04-09 20:45:59 | trip_planner | INFO | [Node: Hotel Finder] Starting
+2026-04-09 20:45:59 | trip_planner | INFO | Tavily search: 'mid-range comfortable hotels in Tokyo with good ratings booking.com MakeMyTrip 2...' 
+2026-04-09 20:46:04 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:46:06 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:46:08 | trip_planner | WARNING | [Node: Hotel Finder] Tavily/LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:46:08 | trip_planner | INFO | [Node: Hotel Finder] Got 0 from LLM, filling with fallback
+2026-04-09 20:46:08 | trip_planner | INFO | [Node: Hotel Finder] Returning 3 hotels
+2026-04-09 20:46:08 | trip_planner | INFO | [GRAPH] hotel_finder done | hotels=3
+2026-04-09 20:46:08 | trip_planner | INFO | [GRAPH] Running itinerary_planner
+2026-04-09 20:46:08 | trip_planner | INFO | [Node: Itinerary Planner] Starting
+2026-04-09 20:46:08 | trip_planner | INFO | Tavily search: 'top activities things to do Tokyo Food & Cuisine History & Culture tourist attra...' 
+2026-04-09 20:46:14 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:46:16 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:46:18 | trip_planner | WARNING | [Node: Itinerary Planner] LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:46:18 | trip_planner | INFO | [Node: Itinerary Planner] LLM gave 0 days, filling 4 with fallback
+2026-04-09 20:46:18 | trip_planner | INFO | [Node: Itinerary Planner] Returning 4 days
+2026-04-09 20:46:18 | trip_planner | INFO | [GRAPH] itinerary done | days=4
+2026-04-09 20:46:18 | trip_planner | INFO | [GRAPH] Running transport_node
+2026-04-09 20:46:18 | trip_planner | INFO | [Node: Transport] Starting
+2026-04-09 20:46:18 | trip_planner | INFO | Tavily search: 'flights trains transport from India to Tokyo cost booking 2024 2025'
+2026-04-09 20:46:24 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:46:26 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:46:28 | trip_planner | WARNING | [Node: Transport] LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:46:28 | trip_planner | INFO | [Node: Transport] Returning 3 options
+2026-04-09 20:46:28 | trip_planner | INFO | [GRAPH] transport done | options=3
+2026-04-09 20:46:28 | trip_planner | INFO | [GRAPH] Running aggregator
+2026-04-09 20:46:28 | trip_planner | INFO | [Node: Aggregator] Starting
+2026-04-09 20:46:28 | trip_planner | INFO | [Node: Aggregator] Input: hotels=3 itinerary=4 transport=3
+2026-04-09 20:46:28 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:46:30 | trip_planner | WARNING | Retrying llm.groq_client.GroqClient.invoke in 2 seconds as it raised NotFoundError: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}.
+2026-04-09 20:46:32 | trip_planner | WARNING | [Node: Aggregator] Tips LLM failed: Error code: 404 - {'error': {'message': 'The model `llama3-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+2026-04-09 20:46:32 | trip_planner | INFO | [Node: Aggregator] TripPlan built: hotels=3 itinerary=4 transport=3 budget=Rs100,000
+2026-04-09 20:46:32 | trip_planner | INFO | [GRAPH] aggregator done | hotels=3 itinerary=4
+2026-04-09 20:46:32 | trip_planner | INFO | [GRAPH] COMPLETE | plan=OK errors=[]
+2026-04-09 20:46:32 | trip_planner | INFO | [GRAPH] Plan summary: dest=Tokyo hotels=3 itinerary=4 transport=3
+2026-04-09 20:46:32 | trip_planner | INFO | Plan stored in session state successfully
