@@ -4,7 +4,7 @@
 
 ![AI Trip Planner Banner](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=AI%20Trip%20Planner&fontSize=50&fontColor=fff&animation=twinkling&fontAlignY=35&desc=Agentic%20Multi-Agent%20Travel%20Planning%20with%20LangGraph%20%2B%20Groq&descAlignY=55&descSize=18)
 
-**Built with ❤️ by [Kaustav Roy Chowdhury](https://github.com/kaustavroy11)**
+**Built with ❤️ by [Kaustav Roy Chowdhury](https://github.com/KaustavWayne)**
 
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![LangGraph](https://img.shields.io/badge/LangGraph-0.2+-FF6B6B?style=for-the-badge&logo=langchain&logoColor=white)](https://langchain-ai.github.io/langgraph/)
@@ -15,7 +15,7 @@
 [![OpenWeatherMap](https://img.shields.io/badge/OpenWeatherMap-Live_Weather-EB6E4B?style=for-the-badge&logo=openweathermap&logoColor=white)](https://openweathermap.org)
 [![UV](https://img.shields.io/badge/uv-Package_Manager-DE5FE9?style=for-the-badge&logo=astral&logoColor=white)](https://docs.astral.sh/uv/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
-[![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red?style=for-the-badge)](https://github.com/kaustavroy11)
+[![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red?style=for-the-badge)](https://github.com/KaustavWayne)
 
 </div>
 
@@ -301,7 +301,7 @@ uv --version
 ### Step 2 — Clone the Repository
 
 ```bash
-git clone https://github.com/kaustavroy11/ai-trip-planner.git
+git clone https://github.com/KaustavWayne/Voyage-AI-Trip-Planner-Project.git
 cd ai-trip-planner
 
 ```
@@ -612,7 +612,7 @@ git push origin feature/your-feature-name
 
 MIT License
 
-Copyright (c) 2025 Kaustav Roy Chowdhury
+Copyright (c) 2026 Kaustav Roy Chowdhury
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
