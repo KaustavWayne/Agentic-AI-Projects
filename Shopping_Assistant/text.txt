@@ -1,0 +1,1806 @@
+# First code
+
+"""
+streamlit_app.py
+Production-grade Streamlit UI for the Agentic AI Shopping Assistant.
+"""
+
+import os
+import json
+import time
+import streamlit as st
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# ── Page config ────────────────────────────────────────────────────────────
+st.set_page_config(
+    page_title="ShopMind AI",
+    page_icon="🛍️",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
+# ── Custom CSS ─────────────────────────────────────────────────────────────
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, [data-testid="stAppViewContainer"] {
+    background: #0a0b0f !important;
+    color: #e8e9f0;
+    font-family: 'DM Sans', sans-serif;
+}
+
+[data-testid="stSidebar"] {
+    background: #0f1117 !important;
+    border-right: 1px solid #1e2030;
+}
+
+/* ── Hide streamlit chrome ── */
+#MainMenu, footer, [data-testid="stToolbar"] { visibility: hidden; }
+[data-testid="stDecoration"] { display: none; }
+
+/* ── Hero header ── */
+.hero {
+    background: linear-gradient(135deg, #0d0e16 0%, #131520 40%, #0d1a2e 100%);
+    border: 1px solid #1e2540;
+    border-radius: 20px;
+    padding: 48px 40px 40px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+}
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 20%;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(236,72,153,0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(99,102,241,0.15);
+    border: 1px solid rgba(99,102,241,0.3);
+    color: #818cf8;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+}
+.hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 12px;
+    background: linear-gradient(135deg, #e8e9f0 0%, #818cf8 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.hero-sub {
+    font-size: 15px;
+    color: #6b7280;
+    font-weight: 300;
+    max-width: 540px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ── Search area ── */
+.search-wrapper {
+    background: #0f1117;
+    border: 1px solid #1e2030;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+[data-testid="stTextInput"] input {
+    background: #141620 !important;
+    border: 1px solid #252840 !important;
+    border-radius: 12px !important;
+    color: #e8e9f0 !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 15px !important;
+    padding: 14px 18px !important;
+    transition: border-color 0.2s;
+}
+[data-testid="stTextInput"] input:focus {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.15) !important;
+    outline: none !important;
+}
+[data-testid="stTextInput"] input::placeholder { color: #4b5563 !important; }
+
+/* ── Sidebar ── */
+.sidebar-section {
+    background: #141620;
+    border: 1px solid #1e2030;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+.sidebar-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #4b5563;
+    margin-bottom: 12px;
+}
+[data-testid="stSlider"] { color: #6366f1 !important; }
+[data-testid="stSelectbox"] > div > div {
+    background: #141620 !important;
+    border-color: #252840 !important;
+    color: #e8e9f0 !important;
+    border-radius: 8px !important;
+}
+
+/* ── Buttons ── */
+[data-testid="stButton"] button {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-family: 'Syne', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    padding: 12px 28px !important;
+    cursor: pointer !important;
+    transition: opacity 0.2s, transform 0.1s !important;
+    width: 100% !important;
+    letter-spacing: 0.3px;
+}
+[data-testid="stButton"] button:hover {
+    opacity: 0.88 !important;
+    transform: translateY(-1px) !important;
+}
+[data-testid="stButton"] button:active { transform: translateY(0) !important; }
+
+/* ── Product cards ── */
+.product-card {
+    background: linear-gradient(145deg, #0f1117, #141620);
+    border: 1px solid #1e2030;
+    border-radius: 16px;
+    padding: 22px;
+    height: 100%;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+    overflow: hidden;
+}
+.product-card:hover {
+    border-color: #6366f1;
+    transform: translateY(-2px);
+}
+.product-card.best-pick {
+    border-color: #ec4899;
+    background: linear-gradient(145deg, #130e1a, #1a1020);
+}
+.best-pick-badge {
+    position: absolute;
+    top: 14px; right: 14px;
+    background: linear-gradient(135deg, #ec4899, #f97316);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+}
+.product-icon {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, #1e2040, #252850);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin-bottom: 14px;
+}
+.product-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #e8e9f0;
+    margin: 0 0 4px;
+    line-height: 1.3;
+}
+.product-price {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #6366f1;
+    margin: 8px 0 4px;
+}
+.product-rating {
+    display: flex; align-items: center; gap: 6px;
+    margin-bottom: 12px;
+}
+.stars { color: #fbbf24; font-size: 13px; letter-spacing: 1px; }
+.rating-num { font-size: 12px; color: #6b7280; font-weight: 500; }
+.feature-tag {
+    display: inline-block;
+    background: rgba(99,102,241,0.1);
+    border: 1px solid rgba(99,102,241,0.2);
+    color: #a5b4fc;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 6px;
+    margin: 2px;
+}
+.pros-cons-section {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #1e2030;
+}
+.pros-item { color: #34d399; font-size: 12px; margin: 3px 0; }
+.cons-item { color: #f87171; font-size: 12px; margin: 3px 0; }
+
+/* ── Best choice banner ── */
+.best-choice-banner {
+    background: linear-gradient(135deg, #1a0d26 0%, #1a1030 50%, #0d1a2e 100%);
+    border: 1px solid rgba(236,72,153,0.3);
+    border-radius: 20px;
+    padding: 32px;
+    margin: 32px 0;
+    position: relative;
+    overflow: hidden;
+}
+.best-choice-banner::before {
+    content: '🏆';
+    position: absolute;
+    right: 28px; top: 24px;
+    font-size: 48px;
+    opacity: 0.15;
+}
+.best-choice-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ec4899;
+    margin-bottom: 8px;
+}
+.best-choice-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: #f0e8ff;
+    margin-bottom: 10px;
+}
+.best-choice-reason {
+    font-size: 14px;
+    color: #9ca3af;
+    line-height: 1.7;
+    max-width: 600px;
+}
+
+/* ── Comparison table ── */
+.compare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 8px;
+}
+.compare-table th {
+    background: #141620;
+    color: #6b7280;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #1e2030;
+}
+.compare-table th:first-child { border-radius: 10px 0 0 0; }
+.compare-table th:last-child { border-radius: 0 10px 0 0; }
+.compare-table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid #141620;
+    font-size: 13px;
+    color: #d1d5db;
+    background: #0f1117;
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table tr:last-child td:first-child { border-radius: 0 0 0 10px; }
+.compare-table tr:last-child td:last-child { border-radius: 0 0 10px 0; }
+.compare-table tr:hover td { background: #131620; }
+.price-cell { color: #6366f1 !important; font-weight: 700 !important; font-family: 'Syne', sans-serif !important; }
+.rating-cell { color: #fbbf24 !important; font-weight: 600 !important; }
+
+/* ── Review section ── */
+.review-card {
+    background: #0f1117;
+    border: 1px solid #1e2030;
+    border-radius: 14px;
+    padding: 20px;
+}
+.review-positive { 
+    background: rgba(52,211,153,0.06); 
+    border: 1px solid rgba(52,211,153,0.15); 
+    border-radius: 8px; padding: 10px 14px; margin: 6px 0;
+    font-size: 13px; color: #6ee7b7;
+}
+.review-negative { 
+    background: rgba(248,113,113,0.06); 
+    border: 1px solid rgba(248,113,113,0.15); 
+    border-radius: 8px; padding: 10px 14px; margin: 6px 0;
+    font-size: 13px; color: #fca5a5;
+}
+.review-issue { 
+    background: rgba(251,191,36,0.06); 
+    border: 1px solid rgba(251,191,36,0.15); 
+    border-radius: 8px; padding: 10px 14px; margin: 6px 0;
+    font-size: 13px; color: #fde68a;
+}
+.sentiment-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 14px; border-radius: 100px;
+    font-size: 12px; font-weight: 600;
+    text-transform: capitalize;
+}
+.sentiment-positive { background: rgba(52,211,153,0.15); color: #34d399; }
+.sentiment-neutral { background: rgba(251,191,36,0.15); color: #fbbf24; }
+.sentiment-negative { background: rgba(248,113,113,0.15); color: #f87171; }
+
+/* ── Alternatives ── */
+.alt-card {
+    background: #0f1117;
+    border: 1px solid #1e2030;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8px;
+    transition: border-color 0.2s;
+}
+.alt-card:hover { border-color: #252840; }
+.alt-name { font-size: 13px; font-weight: 500; color: #d1d5db; }
+.alt-price { font-family: 'Syne', sans-serif; font-weight: 700; color: #818cf8; font-size: 14px; }
+
+/* ── Section headers ── */
+.section-header {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #e8e9f0;
+    margin: 32px 0 16px;
+    display: flex; align-items: center; gap: 10px;
+}
+.section-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, #1e2030 0%, transparent 100%);
+    margin-left: 8px;
+}
+
+/* ── Progress / loading ── */
+.agent-step {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px;
+    background: #0f1117;
+    border: 1px solid #1e2030;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #9ca3af;
+    animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ── Footer ── */
+.footer {
+    text-align: center;
+    padding: 32px 0 16px;
+    border-top: 1px solid #1e2030;
+    margin-top: 48px;
+    color: #374151;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+.footer span { color: #4b5563; }
+
+/* ── JSON output ── */
+[data-testid="stExpander"] {
+    background: #0f1117 !important;
+    border: 1px solid #1e2030 !important;
+    border-radius: 12px !important;
+}
+[data-testid="stCode"] {
+    background: #0a0b0f !important;
+    border-radius: 10px !important;
+}
+
+/* ── Metrics ── */
+[data-testid="metric-container"] {
+    background: #0f1117;
+    border: 1px solid #1e2030;
+    border-radius: 12px;
+    padding: 16px !important;
+}
+[data-testid="metric-container"] label { color: #6b7280 !important; font-size: 12px !important; }
+[data-testid="metric-container"] [data-testid="stMetricValue"] { color: #e8e9f0 !important; font-family: 'Syne', sans-serif !important; }
+
+/* ── Spinner ── */
+[data-testid="stSpinner"] { color: #6366f1 !important; }
+
+/* ── Tabs ── */
+[data-testid="stTabs"] [data-baseweb="tab"] {
+    color: #6b7280 !important;
+    font-family: 'DM Sans', sans-serif !important;
+}
+[data-testid="stTabs"] [aria-selected="true"] {
+    color: #818cf8 !important;
+    border-bottom-color: #6366f1 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+# ── Helpers ───────────────────────────────────────────────────────────────
+
+def stars(rating: float) -> str:
+    full = int(rating)
+    half = 1 if (rating - full) >= 0.5 else 0
+    empty = 5 - full - half
+    return "★" * full + "✦" * half + "☆" * empty
+
+
+def fmt_price(price: float) -> str:
+    if price >= 100000:
+        return f"₹{price/100000:.1f}L"
+    elif price >= 1000:
+        return f"₹{price:,.0f}"
+    return f"₹{price:.0f}"
+
+
+CATEGORY_ICONS = {
+    "smartphone": "📱", "laptop": "💻", "headphone": "🎧",
+    "tablet": "📲", "tv": "📺", "camera": "📷", "watch": "⌚",
+    "earbuds": "🎵", "speaker": "🔊", "keyboard": "⌨️",
+    "mouse": "🖱️", "monitor": "🖥️", "default": "🛍️",
+}
+
+def product_icon(name: str) -> str:
+    name_lower = name.lower()
+    for k, v in CATEGORY_ICONS.items():
+        if k in name_lower:
+            return v
+    return CATEGORY_ICONS["default"]
+
+
+# ── Sidebar ────────────────────────────────────────────────────────────────
+
+with st.sidebar:
+    st.markdown("""
+    <div style='padding: 20px 0 8px;'>
+        <div style='font-family: Syne, sans-serif; font-size: 20px; font-weight: 800;
+             background: linear-gradient(135deg, #818cf8, #ec4899);
+             -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>
+            ShopMind AI
+        </div>
+        <div style='font-size: 11px; color: #4b5563; margin-top: 4px;'>
+            Powered by LangGraph + Groq
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.divider()
+    st.markdown('<div class="sidebar-label">🎛️ Filters</div>', unsafe_allow_html=True)
+
+    budget = st.slider(
+        "Max Budget (₹)",
+        min_value=2000, max_value=200000,
+        value=30000, step=1000,
+        format="₹%d",
+    )
+
+    category = st.selectbox(
+        "Category",
+        ["All", "Smartphones", "Laptops", "Headphones", "Tablets",
+         "Smart Watches", "Cameras", "Speakers", "TVs", "Accessories"],
+    )
+
+    brand = st.selectbox(
+        "Brand Preference",
+        ["Any", "Samsung", "Apple", "OnePlus", "Xiaomi", "Realme",
+         "Boat", "Sony", "LG", "Lenovo", "HP", "Dell", "Asus"],
+    )
+
+    st.divider()
+    st.markdown('<div class="sidebar-label">⚙️ API Keys</div>', unsafe_allow_html=True)
+
+    groq_key = st.text_input(
+        "GROQ API Key",
+        value=os.getenv("GROQ_API_KEY", ""),
+        type="password",
+        placeholder="gsk_...",
+    )
+    tavily_key = st.text_input(
+        "TAVILY API Key",
+        value=os.getenv("TAVILY_API_KEY", ""),
+        type="password",
+        placeholder="tvly-...",
+    )
+
+    if groq_key:
+        os.environ["GROQ_API_KEY"] = groq_key
+    if tavily_key:
+        os.environ["TAVILY_API_KEY"] = tavily_key
+
+    st.divider()
+    st.markdown("""
+    <div style='font-size: 11px; color: #374151; line-height: 1.8;'>
+        🔗 <a href='https://console.groq.com' style='color: #6366f1;' target='_blank'>Get Groq Key</a><br>
+        🔗 <a href='https://tavily.com' style='color: #6366f1;' target='_blank'>Get Tavily Key</a><br><br>
+        Rate limits: Groq free tier friendly.<br>
+        Caching enabled to minimise API calls.
+    </div>
+    """, unsafe_allow_html=True)
+
+
+# ── Main content ───────────────────────────────────────────────────────────
+
+st.markdown("""
+<div class="hero">
+    <div class="hero-badge">✦ AI-Powered</div>
+    <div class="hero-title">Your Smart Shopping Assistant</div>
+    <p class="hero-sub">
+        Describe what you're looking for. Our 7-agent AI pipeline searches,
+        compares, and recommends — all within your budget.
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
+# Search area
+st.markdown('<div class="search-wrapper">', unsafe_allow_html=True)
+
+col_input, col_btn = st.columns([4, 1])
+with col_input:
+    # Build default query incorporating filters
+    default_hint = f"e.g. best {category.lower() if category != 'All' else 'smartphone'} under ₹{budget:,}"
+    if brand != "Any":
+        default_hint += f" from {brand}"
+    user_query = st.text_input(
+        "Search",
+        placeholder=default_hint,
+        label_visibility="collapsed",
+    )
+with col_btn:
+    st.write("")
+    search_clicked = st.button("🔍  Search", use_container_width=True)
+
+# Quick example chips
+st.markdown("""
+<div style='margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px;'>
+    <span style='font-size: 11px; color: #4b5563; margin-right: 4px; line-height: 2;'>Try:</span>
+""", unsafe_allow_html=True)
+
+examples = [
+    "Best phone under ₹15,000",
+    "Wireless earbuds under ₹3,000",
+    "Gaming laptop under ₹80,000",
+    "Smart watch under ₹5,000",
+]
+ex_cols = st.columns(len(examples))
+for i, ex in enumerate(examples):
+    with ex_cols[i]:
+        if st.button(ex, key=f"ex_{i}"):
+            user_query = ex
+            search_clicked = True
+
+st.markdown("</div>", unsafe_allow_html=True)
+st.markdown("</div>", unsafe_allow_html=True)
+
+
+# ── Run pipeline ────────────────────────────────────────────────────────────
+
+if search_clicked and user_query:
+    if not os.getenv("GROQ_API_KEY") or not os.getenv("TAVILY_API_KEY"):
+        st.error("⚠️ Please add your **GROQ_API_KEY** and **TAVILY_API_KEY** in the sidebar.")
+        st.stop()
+
+    # Enrich query with sidebar filters
+    full_query = user_query
+    if f"₹{budget:,}" not in user_query and "under" not in user_query.lower():
+        full_query += f" under ₹{budget:,}"
+    if brand != "Any" and brand.lower() not in user_query.lower():
+        full_query += f" {brand}"
+    if category != "All" and category.lower() not in user_query.lower():
+        full_query += f" {category}"
+
+    # Loading UI
+    status_container = st.empty()
+    progress_bar = st.progress(0)
+    steps = [
+        "🔍 Understanding your query...",
+        "🛒 Searching for products...",
+        "⚖️ Comparing products...",
+        "💰 Optimizing for budget...",
+        "📝 Analysing reviews...",
+        "🏆 Generating recommendation...",
+        "📦 Assembling final output...",
+    ]
+    step_placeholder = st.empty()
+
+    def update_progress(step_idx, msg):
+        progress_bar.progress((step_idx + 1) / len(steps))
+        step_placeholder.markdown(f"""
+        <div class="agent-step">
+            <span style="color: #6366f1; font-size: 16px;">⚡</span>
+            <span>{msg}</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+    for i, step in enumerate(steps[:2]):
+        update_progress(i, step)
+        time.sleep(0.1)
+
+    # Import and run
+    try:
+        from graph.shopping_graph import run_shopping_assistant
+        result = None
+
+        # Simulate progressive steps while running
+        update_progress(1, "🛒 Searching for products...")
+
+        with st.spinner("Running AI agent pipeline..."):
+            result = run_shopping_assistant(full_query)
+
+        for i, step in enumerate(steps[2:], start=2):
+            update_progress(i, step)
+            time.sleep(0.05)
+
+        progress_bar.progress(1.0)
+        step_placeholder.empty()
+        status_container.empty()
+
+    except Exception as e:
+        progress_bar.empty()
+        step_placeholder.empty()
+        st.error(f"❌ Pipeline error: {e}")
+        st.info("💡 Check your API keys and ensure all dependencies are installed.")
+        st.stop()
+
+    if not result or "error" in result:
+        st.error(f"❌ {result.get('error', 'Unknown error occurred')}")
+        st.stop()
+
+    # ── Store in session ──
+    st.session_state["result"] = result
+    st.session_state["query"] = user_query
+
+
+# ── Display results ────────────────────────────────────────────────────────
+
+if "result" in st.session_state:
+    result = st.session_state["result"]
+    products = result.get("products", [])
+    best = result.get("best_choice", {})
+    alternatives = result.get("alternatives", [])
+    review_summary = result.get("review_summary")
+
+    # ── Metrics row ──
+    m1, m2, m3, m4 = st.columns(4)
+    with m1:
+        st.metric("Products Found", len(products))
+    with m2:
+        prices = [p["price"] for p in products if p.get("price")]
+        st.metric("Price Range", f"{fmt_price(min(prices))} – {fmt_price(max(prices))}" if prices else "—")
+    with m3:
+        avg_rating = sum(p.get("rating", 0) for p in products) / len(products) if products else 0
+        st.metric("Avg Rating", f"{'★' * round(avg_rating)} {avg_rating:.1f}")
+    with m4:
+        st.metric("Budget", fmt_price(result.get("budget", 0)))
+
+    # ── Best Choice Banner ──
+    if best:
+        st.markdown(f"""
+        <div class="best-choice-banner">
+            <div class="best-choice-title">🏆 AI Recommendation</div>
+            <div class="best-choice-name">{best.get('name', '')}</div>
+            <div class="best-choice-reason">{best.get('reason', '')}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # ── Tabs ──
+    tab_products, tab_compare, tab_reviews, tab_json = st.tabs([
+        "🛍️  Products", "⚖️  Compare", "📝  Reviews", "{ }  JSON"
+    ])
+
+    # ── Products Tab ──
+    with tab_products:
+        st.markdown('<div class="section-header">🛍️ Products Found</div>', unsafe_allow_html=True)
+
+        cols = st.columns(min(3, len(products))) if products else []
+        for i, product in enumerate(products):
+            col = cols[i % len(cols)] if cols else st.container()
+            with col:
+                is_best = product["name"] == best.get("name", "")
+                card_class = "product-card best-pick" if is_best else "product-card"
+                best_badge = '<span class="best-pick-badge">Best Pick</span>' if is_best else ""
+
+                pros_html = "".join(
+                    f'<div class="pros-item">✓ {p}</div>'
+                    for p in product.get("pros", [])[:3]
+                )
+                cons_html = "".join(
+                    f'<div class="cons-item">✗ {c}</div>'
+                    for c in product.get("cons", [])[:2]
+                )
+                features_html = "".join(
+                    f'<span class="feature-tag">{f}</span>'
+                    for f in product.get("features", [])[:4]
+                )
+                rating = product.get("rating", 4.0)
+
+                st.markdown(f"""
+                <div class="{card_class}">
+                    {best_badge}
+                    <div class="product-icon">{product_icon(product['name'])}</div>
+                    <div class="product-name">{product['name']}</div>
+                    <div class="product-price">{fmt_price(product.get('price', 0))}</div>
+                    <div class="product-rating">
+                        <span class="stars">{stars(rating)}</span>
+                        <span class="rating-num">{rating:.1f} / 5</span>
+                    </div>
+                    <div>{features_html}</div>
+                    <div class="pros-cons-section">
+                        {pros_html}
+                        {cons_html}
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+                st.write("")
+
+        # Alternatives
+        if alternatives:
+            st.markdown('<div class="section-header">💡 Budget Alternatives</div>', unsafe_allow_html=True)
+            for alt in alternatives:
+                st.markdown(f"""
+                <div class="alt-card">
+                    <span class="alt-name">{product_icon(alt['name'])} {alt['name']}</span>
+                    <span class="alt-price">{fmt_price(alt.get('price', 0))}</span>
+                </div>
+                """, unsafe_allow_html=True)
+
+    # ── Compare Tab ──
+    with tab_compare:
+        st.markdown('<div class="section-header">⚖️ Side-by-Side Comparison</div>', unsafe_allow_html=True)
+
+        if products:
+            # Table
+            headers = ["Product", "Price", "Rating", "Top Features", "Pros", "Cons"]
+            rows_html = ""
+            for p in products:
+                is_best = p["name"] == best.get("name", "")
+                name_cell = f'<strong style="color:#ec4899">{p["name"]} 🏆</strong>' if is_best else p["name"]
+                features_short = ", ".join(p.get("features", [])[:2])
+                pros_short = " · ".join(p.get("pros", [])[:2])
+                cons_short = " · ".join(p.get("cons", [])[:1])
+                rows_html += f"""<tr>
+                    <td>{name_cell}</td>
+                    <td class="price-cell">{fmt_price(p.get('price', 0))}</td>
+                    <td class="rating-cell">{p.get('rating', 0):.1f} ★</td>
+                    <td style="font-size:12px; color:#9ca3af">{features_short}</td>
+                    <td style="font-size:12px; color:#6ee7b7">{pros_short}</td>
+                    <td style="font-size:12px; color:#fca5a5">{cons_short}</td>
+                </tr>"""
+
+            st.markdown(f"""
+            <div style="overflow-x: auto; border-radius: 12px; border: 1px solid #1e2030;">
+            <table class="compare-table">
+                <thead><tr>{"".join(f"<th>{h}</th>" for h in headers)}</tr></thead>
+                <tbody>{rows_html}</tbody>
+            </table>
+            </div>
+            """, unsafe_allow_html=True)
+
+    # ── Reviews Tab ──
+    with tab_reviews:
+        st.markdown('<div class="section-header">📝 Review Insights</div>', unsafe_allow_html=True)
+
+        if review_summary:
+            sentiment = review_summary.get("sentiment", "neutral")
+            sentiment_class = f"sentiment-{sentiment}"
+
+            st.markdown(f"""
+            <div class="review-card">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                    <div style="font-family: Syne, sans-serif; font-size: 14px; font-weight: 700; color: #e8e9f0;">
+                        {best.get('name', 'Top Product')} — Review Summary
+                    </div>
+                    <span class="sentiment-badge {sentiment_class}">
+                        {'😊' if sentiment == 'positive' else '😐' if sentiment == 'neutral' else '😕'} {sentiment}
+                    </span>
+                </div>
+            """, unsafe_allow_html=True)
+
+            r_col1, r_col2 = st.columns(2)
+            with r_col1:
+                st.markdown("**✅ Positives**")
+                for p in review_summary.get("positives", []):
+                    st.markdown(f'<div class="review-positive">✓ {p}</div>', unsafe_allow_html=True)
+
+            with r_col2:
+                st.markdown("**❌ Negatives**")
+                for n in review_summary.get("negatives", []):
+                    st.markdown(f'<div class="review-negative">✗ {n}</div>', unsafe_allow_html=True)
+
+            if review_summary.get("common_issues"):
+                st.markdown("**⚠️ Common Issues**")
+                for issue in review_summary.get("common_issues", []):
+                    st.markdown(f'<div class="review-issue">⚠ {issue}</div>', unsafe_allow_html=True)
+
+            st.markdown("</div>", unsafe_allow_html=True)
+        else:
+            st.info("📝 Review data not available for this search.")
+
+    # ── JSON Tab ──
+    with tab_json:
+        st.markdown('<div class="section-header">{ } Raw JSON Output</div>', unsafe_allow_html=True)
+        st.code(json.dumps(result, indent=2, ensure_ascii=False), language="json")
+        st.download_button(
+            label="⬇️ Download JSON",
+            data=json.dumps(result, indent=2, ensure_ascii=False),
+            file_name="shopping_result.json",
+            mime="application/json",
+        )
+
+# ── Empty state ────────────────────────────────────────────────────────────
+elif not search_clicked:
+    st.markdown("""
+    <div style="text-align: center; padding: 60px 20px;">
+        <div style="font-size: 64px; margin-bottom: 16px;">🛍️</div>
+        <div style="font-family: Syne, sans-serif; font-size: 20px; font-weight: 700; color: #374151; margin-bottom: 8px;">
+            Ready to find your perfect product?
+        </div>
+        <div style="font-size: 14px; color: #4b5563;">
+            Enter a search query above or try one of the example searches.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ── Footer ────────────────────────────────────────────────────────────────
+st.markdown("""
+<div class="footer">
+    © Kaustav Roy Chowdhury &nbsp;·&nbsp;
+    <span>ShopMind AI</span> &nbsp;·&nbsp;
+    Built with LangGraph · Groq · Tavily · Streamlit
+</div>
+""", unsafe_allow_html=True)
+
+
+
+# 2nd code 
+
+"""
+streamlit_app.py
+Production-grade Streamlit UI for the Agentic AI Shopping Assistant.
+"""
+
+import os
+import json
+import time
+import streamlit as st
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# ── Page config ────────────────────────────────────────────────────────────
+st.set_page_config(
+    page_title="ShopMind AI",
+    page_icon="🛍️",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
+# ── Custom CSS ─────────────────────────────────────────────────────────────
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, [data-testid="stAppViewContainer"] {
+    background: #0a0b0f !important;
+    color: #e8e9f0;
+    font-family: 'DM Sans', sans-serif;
+}
+
+[data-testid="stSidebar"] {
+    background: #0f1117 !important;
+    border-right: 1px solid #1e2030;
+}
+
+/* ── Hide streamlit chrome ── */
+#MainMenu, footer, [data-testid="stToolbar"] { visibility: hidden; }
+[data-testid="stDecoration"] { display: none; }
+
+/* ── Hero header ── */
+.hero {
+    background: linear-gradient(135deg, #0d0e16 0%, #131520 40%, #0d1a2e 100%);
+    border: 1px solid #1e2540;
+    border-radius: 20px;
+    padding: 48px 40px 40px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+}
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 20%;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(236,72,153,0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(99,102,241,0.15);
+    border: 1px solid rgba(99,102,241,0.3);
+    color: #818cf8;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+}
+.hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 12px;
+    background: linear-gradient(135deg, #e8e9f0 0%, #818cf8 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.hero-sub {
+    font-size: 15px;
+    color: #6b7280;
+    font-weight: 300;
+    max-width: 540px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ── Search area ── */
+.search-wrapper {
+    background: #0f1117;
+    border: 1px solid #1e2030;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+[data-testid="stTextInput"] input {
+    background: #141620 !important;
+    border: 1px solid #252840 !important;
+    border-radius: 12px !important;
+    color: #e8e9f0 !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 15px !important;
+    padding: 14px 18px !important;
+    transition: border-color 0.2s;
+}
+[data-testid="stTextInput"] input:focus {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.15) !important;
+    outline: none !important;
+}
+[data-testid="stTextInput"] input::placeholder { color: #4b5563 !important; }
+
+/* ── Sidebar ── */
+.sidebar-section {
+    background: #141620;
+    border: 1px solid #1e2030;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+.sidebar-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #4b5563;
+    margin-bottom: 12px;
+}
+[data-testid="stSlider"] { color: #6366f1 !important; }
+[data-testid="stSelectbox"] > div > div {
+    background: #141620 !important;
+    border-color: #252840 !important;
+    color: #e8e9f0 !important;
+    border-radius: 8px !important;
+}
+
+/* ── Buttons ── */
+[data-testid="stButton"] button {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-family: 'Syne', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    padding: 12px 28px !important;
+    cursor: pointer !important;
+    transition: opacity 0.2s, transform 0.1s !important;
+    width: 100% !important;
+    letter-spacing: 0.3px;
+}
+[data-testid="stButton"] button:hover {
+    opacity: 0.88 !important;
+    transform: translateY(-1px) !important;
+}
+[data-testid="stButton"] button:active { transform: translateY(0) !important; }
+
+/* ── Products grid (CSS grid replaces st.columns to avoid HTML render bug) ── */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 16px;
+}
+@media (max-width: 900px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px) { .products-grid { grid-template-columns: 1fr; } }
+
+/* ── Product cards ── */
+.product-card {
+    background: linear-gradient(145deg, #0f1117, #141620);
+    border: 1px solid #1e2030;
+    border-radius: 16px;
+    padding: 22px;
+    height: 100%;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+    overflow: hidden;
+}
+.product-card:hover {
+    border-color: #6366f1;
+    transform: translateY(-2px);
+}
+.product-card.best-pick {
+    border-color: #ec4899;
+    background: linear-gradient(145deg, #130e1a, #1a1020);
+}
+.best-pick-badge {
+    position: absolute;
+    top: 14px; right: 14px;
+    background: linear-gradient(135deg, #ec4899, #f97316);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+}
+.product-icon {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, #1e2040, #252850);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin-bottom: 14px;
+}
+.product-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #e8e9f0;
+    margin: 0 0 4px;
+    line-height: 1.3;
+}
+.product-price {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #6366f1;
+    margin: 8px 0 4px;
+}
+.product-rating {
+    display: flex; align-items: center; gap: 6px;
+    margin-bottom: 12px;
+}
+.stars { color: #fbbf24; font-size: 13px; letter-spacing: 1px; }
+.rating-num { font-size: 12px; color: #6b7280; font-weight: 500; }
+.feature-tag {
+    display: inline-block;
+    background: rgba(99,102,241,0.1);
+    border: 1px solid rgba(99,102,241,0.2);
+    color: #a5b4fc;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 6px;
+    margin: 2px;
+}
+.pros-cons-section {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #1e2030;
+}
+.pros-item { color: #34d399; font-size: 12px; margin: 3px 0; }
+.cons-item { color: #f87171; font-size: 12px; margin: 3px 0; }
+
+/* ── Best choice banner ── */
+.best-choice-banner {
+    background: linear-gradient(135deg, #1a0d26 0%, #1a1030 50%, #0d1a2e 100%);
+    border: 1px solid rgba(236,72,153,0.3);
+    border-radius: 20px;
+    padding: 32px;
+    margin: 32px 0;
+    position: relative;
+    overflow: hidden;
+}
+.best-choice-banner::before {
+    content: '🏆';
+    position: absolute;
+    right: 28px; top: 24px;
+    font-size: 48px;
+    opacity: 0.15;
+}
+.best-choice-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ec4899;
+    margin-bottom: 8px;
+}
+.best-choice-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: #f0e8ff;
+    margin-bottom: 10px;
+}
+.best-choice-reason {
+    font-size: 14px;
+    color: #9ca3af;
+    line-height: 1.7;
+    max-width: 600px;
+}
+
+/* ── Comparison table ── */
+.compare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 8px;
+}
+.compare-table th {
+    background: #141620;
+    color: #6b7280;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #1e2030;
+}
+.compare-table th:first-child { border-radius: 10px 0 0 0; }
+.compare-table th:last-child { border-radius: 0 10px 0 0; }
+.compare-table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid #141620;
+    font-size: 13px;
+    color: #d1d5db;
+    background: #0f1117;
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table tr:last-child td:first-child { border-radius: 0 0 0 10px; }
+.compare-table tr:last-child td:last-child { border-radius: 0 0 10px 0; }
+.compare-table tr:hover td { background: #131620; }
+.price-cell { color: #6366f1 !important; font-weight: 700 !important; font-family: 'Syne', sans-serif !important; }
+.rating-cell { color: #fbbf24 !important; font-weight: 600 !important; }
+
+/* ── Review section ── */
+.review-card {
+    background: #0f1117;
+    border: 1px solid #1e2030;
+    border-radius: 14px;
+    padding: 20px;
+}
+.review-positive { 
+    background: rgba(52,211,153,0.06); 
+    border: 1px solid rgba(52,211,153,0.15); 
+    border-radius: 8px; padding: 10px 14px; margin: 6px 0;
+    font-size: 13px; color: #6ee7b7;
+}
+.review-negative { 
+    background: rgba(248,113,113,0.06); 
+    border: 1px solid rgba(248,113,113,0.15); 
+    border-radius: 8px; padding: 10px 14px; margin: 6px 0;
+    font-size: 13px; color: #fca5a5;
+}
+.review-issue { 
+    background: rgba(251,191,36,0.06); 
+    border: 1px solid rgba(251,191,36,0.15); 
+    border-radius: 8px; padding: 10px 14px; margin: 6px 0;
+    font-size: 13px; color: #fde68a;
+}
+.sentiment-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 14px; border-radius: 100px;
+    font-size: 12px; font-weight: 600;
+    text-transform: capitalize;
+}
+.sentiment-positive { background: rgba(52,211,153,0.15); color: #34d399; }
+.sentiment-neutral { background: rgba(251,191,36,0.15); color: #fbbf24; }
+.sentiment-negative { background: rgba(248,113,113,0.15); color: #f87171; }
+
+/* ── Alternatives ── */
+.alt-card {
+    background: #0f1117;
+    border: 1px solid #1e2030;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8px;
+    transition: border-color 0.2s;
+}
+.alt-card:hover { border-color: #252840; }
+.alt-name { font-size: 13px; font-weight: 500; color: #d1d5db; }
+.alt-price { font-family: 'Syne', sans-serif; font-weight: 700; color: #818cf8; font-size: 14px; }
+
+/* ── Section headers ── */
+.section-header {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #e8e9f0;
+    margin: 32px 0 16px;
+    display: flex; align-items: center; gap: 10px;
+}
+.section-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, #1e2030 0%, transparent 100%);
+    margin-left: 8px;
+}
+
+/* ── Progress / loading ── */
+.agent-step {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px;
+    background: #0f1117;
+    border: 1px solid #1e2030;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #9ca3af;
+    animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ── Footer ── */
+.footer {
+    text-align: center;
+    padding: 32px 0 16px;
+    border-top: 1px solid #1e2030;
+    margin-top: 48px;
+    color: #374151;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+.footer span { color: #4b5563; }
+
+/* ── JSON output ── */
+[data-testid="stExpander"] {
+    background: #0f1117 !important;
+    border: 1px solid #1e2030 !important;
+    border-radius: 12px !important;
+}
+[data-testid="stCode"] {
+    background: #0a0b0f !important;
+    border-radius: 10px !important;
+}
+
+/* ── Metrics ── */
+[data-testid="metric-container"] {
+    background: #0f1117;
+    border: 1px solid #1e2030;
+    border-radius: 12px;
+    padding: 16px !important;
+}
+[data-testid="metric-container"] label { color: #6b7280 !important; font-size: 12px !important; }
+[data-testid="metric-container"] [data-testid="stMetricValue"] { color: #e8e9f0 !important; font-family: 'Syne', sans-serif !important; }
+
+/* ── Spinner ── */
+[data-testid="stSpinner"] { color: #6366f1 !important; }
+
+/* ── Tabs ── */
+[data-testid="stTabs"] [data-baseweb="tab"] {
+    color: #6b7280 !important;
+    font-family: 'DM Sans', sans-serif !important;
+}
+[data-testid="stTabs"] [aria-selected="true"] {
+    color: #818cf8 !important;
+    border-bottom-color: #6366f1 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+# ── Helpers ───────────────────────────────────────────────────────────────
+
+def stars(rating: float) -> str:
+    full = int(rating)
+    half = 1 if (rating - full) >= 0.5 else 0
+    empty = 5 - full - half
+    return "★" * full + "✦" * half + "☆" * empty
+
+
+def fmt_price(price: float) -> str:
+    if price >= 100000:
+        return f"₹{price/100000:.1f}L"
+    elif price >= 1000:
+        return f"₹{price:,.0f}"
+    return f"₹{price:.0f}"
+
+
+CATEGORY_ICONS = {
+    "smartphone": "📱", "laptop": "💻", "headphone": "🎧",
+    "tablet": "📲", "tv": "📺", "camera": "📷", "watch": "⌚",
+    "earbuds": "🎵", "speaker": "🔊", "keyboard": "⌨️",
+    "mouse": "🖱️", "monitor": "🖥️", "default": "🛍️",
+}
+
+def product_icon(name: str) -> str:
+    name_lower = name.lower()
+    for k, v in CATEGORY_ICONS.items():
+        if k in name_lower:
+            return v
+    return CATEGORY_ICONS["default"]
+
+
+# ── Sidebar ────────────────────────────────────────────────────────────────
+
+with st.sidebar:
+    st.markdown("""
+    <div style='padding: 20px 0 8px;'>
+        <div style='font-family: Syne, sans-serif; font-size: 20px; font-weight: 800;
+             background: linear-gradient(135deg, #818cf8, #ec4899);
+             -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>
+            ShopMind AI
+        </div>
+        <div style='font-size: 11px; color: #4b5563; margin-top: 4px;'>
+            Powered by LangGraph + Groq
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.divider()
+    st.markdown('<div class="sidebar-label">🎛️ Filters</div>', unsafe_allow_html=True)
+
+    budget = st.slider(
+        "Max Budget (₹)",
+        min_value=2000, max_value=200000,
+        value=30000, step=1000,
+        format="₹%d",
+    )
+
+    category = st.selectbox(
+        "Category",
+        ["All", "Smartphones", "Laptops", "Headphones", "Tablets",
+         "Smart Watches", "Cameras", "Speakers", "TVs", "Accessories"],
+    )
+
+    brand = st.selectbox(
+        "Brand Preference",
+        ["Any", "Samsung", "Apple", "OnePlus", "Xiaomi", "Realme",
+         "Boat", "Sony", "LG", "Lenovo", "HP", "Dell", "Asus"],
+    )
+
+    st.divider()
+    st.markdown('<div class="sidebar-label">⚙️ API Keys</div>', unsafe_allow_html=True)
+
+    groq_key = st.text_input(
+        "GROQ API Key",
+        value=os.getenv("GROQ_API_KEY", ""),
+        type="password",
+        placeholder="gsk_...",
+    )
+    tavily_key = st.text_input(
+        "TAVILY API Key",
+        value=os.getenv("TAVILY_API_KEY", ""),
+        type="password",
+        placeholder="tvly-...",
+    )
+
+    if groq_key:
+        os.environ["GROQ_API_KEY"] = groq_key
+    if tavily_key:
+        os.environ["TAVILY_API_KEY"] = tavily_key
+
+    st.divider()
+    st.markdown("""
+    <div style='font-size: 11px; color: #374151; line-height: 1.8;'>
+        🔗 <a href='https://console.groq.com' style='color: #6366f1;' target='_blank'>Get Groq Key</a><br>
+        🔗 <a href='https://tavily.com' style='color: #6366f1;' target='_blank'>Get Tavily Key</a><br><br>
+        Rate limits: Groq free tier friendly.<br>
+        Caching enabled to minimise API calls.
+    </div>
+    """, unsafe_allow_html=True)
+
+
+# ── Main content ───────────────────────────────────────────────────────────
+
+st.markdown("""
+<div class="hero">
+    <div class="hero-badge">✦ AI-Powered</div>
+    <div class="hero-title">Your Smart Shopping Assistant</div>
+    <p class="hero-sub">
+        Describe what you're looking for. Our 7-agent AI pipeline searches,
+        compares, and recommends — all within your budget.
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
+# Search area
+st.markdown('<div class="search-wrapper">', unsafe_allow_html=True)
+
+col_input, col_btn = st.columns([4, 1])
+with col_input:
+    # Build default query incorporating filters
+    default_hint = f"e.g. best {category.lower() if category != 'All' else 'smartphone'} under ₹{budget:,}"
+    if brand != "Any":
+        default_hint += f" from {brand}"
+    user_query = st.text_input(
+        "Search",
+        placeholder=default_hint,
+        label_visibility="collapsed",
+    )
+with col_btn:
+    st.write("")
+    search_clicked = st.button("🔍  Search", use_container_width=True)
+
+# Quick example chips
+st.markdown("""
+<div style='margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px;'>
+    <span style='font-size: 11px; color: #4b5563; margin-right: 4px; line-height: 2;'>Try:</span>
+""", unsafe_allow_html=True)
+
+examples = [
+    "Best phone under ₹15,000",
+    "Wireless earbuds under ₹3,000",
+    "Gaming laptop under ₹80,000",
+    "Smart watch under ₹5,000",
+]
+ex_cols = st.columns(len(examples))
+for i, ex in enumerate(examples):
+    with ex_cols[i]:
+        if st.button(ex, key=f"ex_{i}"):
+            user_query = ex
+            search_clicked = True
+
+st.markdown("</div>", unsafe_allow_html=True)
+st.markdown("</div>", unsafe_allow_html=True)
+
+
+# ── Run pipeline ────────────────────────────────────────────────────────────
+
+if search_clicked and user_query:
+    if not os.getenv("GROQ_API_KEY") or not os.getenv("TAVILY_API_KEY"):
+        st.error("⚠️ Please add your **GROQ_API_KEY** and **TAVILY_API_KEY** in the sidebar.")
+        st.stop()
+
+    # Enrich query with sidebar filters
+    full_query = user_query
+    if f"₹{budget:,}" not in user_query and "under" not in user_query.lower():
+        full_query += f" under ₹{budget:,}"
+    if brand != "Any" and brand.lower() not in user_query.lower():
+        full_query += f" {brand}"
+    if category != "All" and category.lower() not in user_query.lower():
+        full_query += f" {category}"
+
+    # Loading UI
+    status_container = st.empty()
+    progress_bar = st.progress(0)
+    steps = [
+        "🔍 Understanding your query...",
+        "🛒 Searching for products...",
+        "⚖️ Comparing products...",
+        "💰 Optimizing for budget...",
+        "📝 Analysing reviews...",
+        "🏆 Generating recommendation...",
+        "📦 Assembling final output...",
+    ]
+    step_placeholder = st.empty()
+
+    def update_progress(step_idx, msg):
+        progress_bar.progress((step_idx + 1) / len(steps))
+        step_placeholder.markdown(f"""
+        <div class="agent-step">
+            <span style="color: #6366f1; font-size: 16px;">⚡</span>
+            <span>{msg}</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+    for i, step in enumerate(steps[:2]):
+        update_progress(i, step)
+        time.sleep(0.1)
+
+    # Import and run
+    try:
+        from graph.shopping_graph import run_shopping_assistant
+        result = None
+
+        # Simulate progressive steps while running
+        update_progress(1, "🛒 Searching for products...")
+
+        with st.spinner("Running AI agent pipeline..."):
+            result = run_shopping_assistant(full_query)
+
+        for i, step in enumerate(steps[2:], start=2):
+            update_progress(i, step)
+            time.sleep(0.05)
+
+        progress_bar.progress(1.0)
+        step_placeholder.empty()
+        status_container.empty()
+
+    except Exception as e:
+        progress_bar.empty()
+        step_placeholder.empty()
+        st.error(f"❌ Pipeline error: {e}")
+        st.info("💡 Check your API keys and ensure all dependencies are installed.")
+        st.stop()
+
+    if not result or "error" in result:
+        st.error(f"❌ {result.get('error', 'Unknown error occurred')}")
+        st.stop()
+
+    # ── Store in session ──
+    st.session_state["result"] = result
+    st.session_state["query"] = user_query
+
+
+# ── Display results ────────────────────────────────────────────────────────
+
+if "result" in st.session_state:
+    result = st.session_state["result"]
+    products = result.get("products", [])
+    best = result.get("best_choice", {})
+    alternatives = result.get("alternatives", [])
+    review_summary = result.get("review_summary")
+
+    # ── Metrics row ──
+    m1, m2, m3, m4 = st.columns(4)
+    with m1:
+        st.metric("Products Found", len(products))
+    with m2:
+        prices = [p["price"] for p in products if p.get("price")]
+        st.metric("Price Range", f"{fmt_price(min(prices))} – {fmt_price(max(prices))}" if prices else "—")
+    with m3:
+        avg_rating = sum(p.get("rating", 0) for p in products) / len(products) if products else 0
+        st.metric("Avg Rating", f"{'★' * round(avg_rating)} {avg_rating:.1f}")
+    with m4:
+        st.metric("Budget", fmt_price(result.get("budget", 0)))
+
+    # ── Best Choice Banner ──
+    if best:
+        st.markdown(f"""
+        <div class="best-choice-banner">
+            <div class="best-choice-title">🏆 AI Recommendation</div>
+            <div class="best-choice-name">{best.get('name', '')}</div>
+            <div class="best-choice-reason">{best.get('reason', '')}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # ── Tabs ──
+    tab_products, tab_compare, tab_reviews, tab_json = st.tabs([
+        "🛍️  Products", "⚖️  Compare", "📝  Reviews", "{ }  JSON"
+    ])
+
+    # ── Products Tab ──
+    with tab_products:
+        st.markdown('<div class="section-header">🛍️ Products Found</div>', unsafe_allow_html=True)
+
+        if products:
+            # Build ALL cards as one single HTML block using CSS grid.
+            # This avoids the Streamlit st.columns() bug where HTML in
+            # reused column contexts gets rendered as raw text.
+            all_cards_html = '<div class="products-grid">'
+
+            for product in products:
+                is_best = product["name"] == best.get("name", "")
+                card_class = "product-card best-pick" if is_best else "product-card"
+                best_badge = '<span class="best-pick-badge">Best Pick</span>' if is_best else ""
+
+                pros_html = "".join(
+                    f'<div class="pros-item">✓ {pro}</div>'
+                    for pro in product.get("pros", [])[:3]
+                )
+                cons_html = "".join(
+                    f'<div class="cons-item">✗ {con}</div>'
+                    for con in product.get("cons", [])[:2]
+                )
+                features_html = "".join(
+                    f'<span class="feature-tag">{f}</span>'
+                    for f in product.get("features", [])[:4]
+                )
+                rating = product.get("rating", 4.0)
+
+                all_cards_html += f"""
+                <div class="{card_class}">
+                    {best_badge}
+                    <div class="product-icon">{product_icon(product['name'])}</div>
+                    <div class="product-name">{product['name']}</div>
+                    <div class="product-price">{fmt_price(product.get('price', 0))}</div>
+                    <div class="product-rating">
+                        <span class="stars">{stars(rating)}</span>
+                        <span class="rating-num">{rating:.1f} / 5</span>
+                    </div>
+                    <div>{features_html}</div>
+                    <div class="pros-cons-section">
+                        {pros_html}
+                        {cons_html}
+                    </div>
+                </div>"""
+
+            all_cards_html += "</div>"
+            st.markdown(all_cards_html, unsafe_allow_html=True)
+
+        # Alternatives
+        if alternatives:
+            st.markdown('<div class="section-header">💡 Budget Alternatives</div>', unsafe_allow_html=True)
+            alts_html = ""
+            for alt in alternatives:
+                alts_html += f"""
+                <div class="alt-card">
+                    <span class="alt-name">{product_icon(alt['name'])} {alt['name']}</span>
+                    <span class="alt-price">{fmt_price(alt.get('price', 0))}</span>
+                </div>"""
+            st.markdown(alts_html, unsafe_allow_html=True)
+
+    # ── Compare Tab ──
+    with tab_compare:
+        st.markdown('<div class="section-header">⚖️ Side-by-Side Comparison</div>', unsafe_allow_html=True)
+
+        if products:
+            # Table
+            headers = ["Product", "Price", "Rating", "Top Features", "Pros", "Cons"]
+            rows_html = ""
+            for p in products:
+                is_best = p["name"] == best.get("name", "")
+                name_cell = f'<strong style="color:#ec4899">{p["name"]} 🏆</strong>' if is_best else p["name"]
+                features_short = ", ".join(p.get("features", [])[:2])
+                pros_short = " · ".join(p.get("pros", [])[:2])
+                cons_short = " · ".join(p.get("cons", [])[:1])
+                rows_html += f"""<tr>
+                    <td>{name_cell}</td>
+                    <td class="price-cell">{fmt_price(p.get('price', 0))}</td>
+                    <td class="rating-cell">{p.get('rating', 0):.1f} ★</td>
+                    <td style="font-size:12px; color:#9ca3af">{features_short}</td>
+                    <td style="font-size:12px; color:#6ee7b7">{pros_short}</td>
+                    <td style="font-size:12px; color:#fca5a5">{cons_short}</td>
+                </tr>"""
+
+            st.markdown(f"""
+            <div style="overflow-x: auto; border-radius: 12px; border: 1px solid #1e2030;">
+            <table class="compare-table">
+                <thead><tr>{"".join(f"<th>{h}</th>" for h in headers)}</tr></thead>
+                <tbody>{rows_html}</tbody>
+            </table>
+            </div>
+            """, unsafe_allow_html=True)
+
+    # ── Reviews Tab ──
+    with tab_reviews:
+        st.markdown('<div class="section-header">📝 Review Insights</div>', unsafe_allow_html=True)
+
+        if review_summary:
+            sentiment = review_summary.get("sentiment", "neutral")
+            sentiment_class = f"sentiment-{sentiment}"
+
+            st.markdown(f"""
+            <div class="review-card">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                    <div style="font-family: Syne, sans-serif; font-size: 14px; font-weight: 700; color: #e8e9f0;">
+                        {best.get('name', 'Top Product')} — Review Summary
+                    </div>
+                    <span class="sentiment-badge {sentiment_class}">
+                        {'😊' if sentiment == 'positive' else '😐' if sentiment == 'neutral' else '😕'} {sentiment}
+                    </span>
+                </div>
+            """, unsafe_allow_html=True)
+
+            r_col1, r_col2 = st.columns(2)
+            with r_col1:
+                st.markdown("**✅ Positives**")
+                for p in review_summary.get("positives", []):
+                    st.markdown(f'<div class="review-positive">✓ {p}</div>', unsafe_allow_html=True)
+
+            with r_col2:
+                st.markdown("**❌ Negatives**")
+                for n in review_summary.get("negatives", []):
+                    st.markdown(f'<div class="review-negative">✗ {n}</div>', unsafe_allow_html=True)
+
+            if review_summary.get("common_issues"):
+                st.markdown("**⚠️ Common Issues**")
+                for issue in review_summary.get("common_issues", []):
+                    st.markdown(f'<div class="review-issue">⚠ {issue}</div>', unsafe_allow_html=True)
+
+            st.markdown("</div>", unsafe_allow_html=True)
+        else:
+            st.info("📝 Review data not available for this search.")
+
+    # ── JSON Tab ──
+    with tab_json:
+        st.markdown('<div class="section-header">{ } Raw JSON Output</div>', unsafe_allow_html=True)
+        st.code(json.dumps(result, indent=2, ensure_ascii=False), language="json")
+        st.download_button(
+            label="⬇️ Download JSON",
+            data=json.dumps(result, indent=2, ensure_ascii=False),
+            file_name="shopping_result.json",
+            mime="application/json",
+        )
+
+# ── Empty state ────────────────────────────────────────────────────────────
+elif not search_clicked:
+    st.markdown("""
+    <div style="text-align: center; padding: 60px 20px;">
+        <div style="font-size: 64px; margin-bottom: 16px;">🛍️</div>
+        <div style="font-family: Syne, sans-serif; font-size: 20px; font-weight: 700; color: #374151; margin-bottom: 8px;">
+            Ready to find your perfect product?
+        </div>
+        <div style="font-size: 14px; color: #4b5563;">
+            Enter a search query above or try one of the example searches.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ── Footer ────────────────────────────────────────────────────────────────
+st.markdown("""
+<div class="footer">
+    © Kaustav Roy Chowdhury &nbsp;·&nbsp;
+    <span>ShopMind AI</span> &nbsp;·&nbsp;
+    Built with LangGraph · Groq · Tavily · Streamlit
+</div>
+""", unsafe_allow_html=True)
