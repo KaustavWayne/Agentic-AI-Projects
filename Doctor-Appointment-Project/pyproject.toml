@@ -1,0 +1,29 @@
+[project]
+name = "dental-appointment-system"
+version = "0.1.0"
+description = "AI-powered dental appointment management using LangGraph + Groq (llama-3.1-8b-instant)"
+requires-python = ">=3.11"
+dependencies = [
+    "langgraph>=0.2.0",
+    "langchain>=0.3.0",
+    "langchain-core>=0.3.0",
+    "langchain-groq>=0.2.0",
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "streamlit>=1.35.0",
+    "requests>=2.32.0",
+    "pandas>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.0.0",
+]
+
+[project.scripts]
+# CLI entry point — unchanged: runs main.py::run()
+dental-cli = "main:run"
+
+[tool.hatch.build.targets.wheel]
+packages = ["dental_agent"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
