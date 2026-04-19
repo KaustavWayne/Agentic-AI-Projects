@@ -1,7 +1,5 @@
 <p align="center">
-  <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=60&pause=1000&color=3670A0&center=true&vCenter=true&width=1000&height=200&lines=⚡+QuizForge;🚀+AI+MCQ+Generator;📝+PDF+to+Knowledge" alt="QuizForge Banner" />
-  </a>
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=60&pause=1000&color=3670A0&center=true&vCenter=true&width=1000&height=200&lines=%E2%9A%A1+QuizForge;%F0%9F%9A%80+AI+MCQ+Generator;%F0%9F%93%9D+PDF+to+Knowledge" alt="QuizForge Banner" />
 </p>
 
 <p align="center">
