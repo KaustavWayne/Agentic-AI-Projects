@@ -85,11 +85,12 @@ Only if you need to handle entire textbooks (300+ pages) without truncation, or 
 cd mcq_generator
 
 # 2. Create virtual environment
-python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install uv
+uv venv
+For MacOs: source .venv/bin/activate   # Windows: .venv\Scripts\activate
 
 # 3. Install dependencies
-pip install -r requirements.txt
+uv pip install -r requirements.txt
 
 # 4. Set API key
 cp .env.example .env
